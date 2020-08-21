@@ -29,6 +29,21 @@
         .then(function(response) {
                 // Handle the results here (response.result has the parsed body).
                 console.log("Response", response);
+                console.log("values",response.result.schema.fields[0].name);
+                var x;
+                for (x of response.result.schema.fields){
+                     console.log("field headings",x.name);
+                }
+                var row, col;
+                for (row of response.result.rows){
+                  for (col of row.f){
+                    console.log("values",col.v)
+                  }
+
+
+                }
+       
+
               },
               function(err) { console.error("Execute error", err); });
   }
