@@ -7,26 +7,23 @@
 
 	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 	<script type="text/javascript">
-		google.charts.load('current', {'packages':['corechart']});
+		google.charts.load('current', { 'packages': ['corechart'] });
 		google.charts.setOnLoadCallback(drawChart);
 
 		function drawChart() {
 			var data = google.visualization.arrayToDataTable([
 				['Year', 'Sales', 'Expenses'],
-				['2004',  1000,      400],
-				['2005',  1170,      460],
-				['2006',  660,       1120],
-				['2007',  1030,      540]
+				['2004', 1000, 400],
+				['2005', 1170, 460],
+				['2006', 660, 1120],
+				['2007', 1030, 540]
 			]);
-
 			var options = {
 				title: 'Company Performance',
 				//curveType: 'function',
 				legend: { position: 'bottom' }
 			};
-
 			var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
-
 			chart.draw(data, options);
 		}
 	</script>
@@ -41,5 +38,27 @@
 	<script src="JavaScript/loadData.js"></script>
 </body>
 <button onclick="authenticate().then(loadClient)">authorize and load</button>
-<button onclick="execute()">execute</button>
+<button onclick="executeLoadChart()">execute</button>
+<script>
+	function executeLoadChart() {
+		console.log("load called")
+		execute().then(function (dataset) {
+			console.log("dataset", dataset);
+			for (fieldName of dataset.result.schema.fields) {
+				console.log("field headings", fieldName.name);
+			}
+			//var row, col;
+			for (row of dataset.result.rows) {
+				for (col of row.f) {
+					console.log("values", col.v)
+					console.log("load finished")
+				}
+			}
+		}
+		)
+	}
+
+
+</script>
+
 </html>
