@@ -42,7 +42,19 @@
 <script>
 	function executeLoadChart() {
 		console.log("load called")
-		execute().then(function (dataset) {
+		dataset = execute().then();
+		console.log("dataset", dataset);
+		console.log("dataset MF", dataset.Mf);
+		s
+
+
+
+		}
+		
+		
+		//console.log("datas", datas);
+			
+		/*function (dataset) {
 			console.log("dataset", dataset);
 			for (fieldName of dataset.result.schema.fields) {
 				console.log("field headings", fieldName.name);
@@ -51,13 +63,16 @@
 			for (row of dataset.result.rows) {
 				for (col of row.f) {
 					console.log("values", col.v)
-					console.log("load finished")
+				//	console.log("load finished")
 				}
 			}
 		}
-		)
-	}
+		)*/
+	
+function loadDatasetToChart(dataset){
+	console.log("dataset", dataset);
 
+}
 
 </script>
 

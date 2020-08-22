@@ -15,29 +15,16 @@ function execute() {
     return gapi.client.bigquery.jobs.query({
         "projectId": "modelsales1",
         "resource": {
-            "query": "SELECT MONTH, sum(ActualGrossTotal) FROM model4.InvoiceSales GROUP BY MONTH LIMIT 1000"
+            "query": "SELECT MONTH, sum(ActualGrossTotal) as ActualGrossTotal FROM model4.InvoiceSales GROUP BY MONTH LIMIT 1000"
         }
     })
         .then(function (response) {
             // Handle the results here (response.result has the parsed body).
             console.log("Response", response);
-            return response
-            //console.log("values",response.result.schema.fields[0].name);
-            //var x;
-            /*
-            for (x of response.result.schema.fields){
-                 console.log("field headings",x.name);
-            }
-            /*
-            var row, col;
-            for (row of response.result.rows){
-              for (col of row.f){
-                console.log("values",col.v)
-              
-            }
-           
-        }
-   */
+            return response.result;
+            //for (x of response.result.schema.fields){
+            //     console.log("field headings",x.name);
+            //}
 
         },
             function (err) { console.error("Execute error", err); });
