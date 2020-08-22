@@ -15,9 +15,9 @@ function execute() {
     return gapi.client.bigquery.jobs.query({
         "projectId": "modelsales1",
         "resource": {
-            "query": "SELECT MONTH, sum(ActualGrossTotal) as ActualGrossTotal FROM model4.InvoiceSales GROUP BY MONTH LIMIT 1000"
-        }
-    })
+            "query": "SELECT Cast(MONTH as String) as Month, sum(ActualGrossTotal) as ActualGrossTotal FROM model4.InvoiceSales GROUP BY Month Order by Month"
+        }})}
+    /*   })
         .then(function (response) {
             // Handle the results here (response.result has the parsed body).
             console.log("Response", response);
@@ -28,7 +28,8 @@ function execute() {
 
         },
             function (err) { console.error("Execute error", err); });
-}
+*/
+        
 gapi.load("client:auth2", function () {
     gapi.auth2.init({ client_id: "15273187460-elptddbevnsgd3f0fvo39cdn13h48ugs.apps.googleusercontent.com" });
 });

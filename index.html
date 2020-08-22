@@ -8,21 +8,44 @@
 	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 	<script type="text/javascript">
 		google.charts.load('current', { 'packages': ['corechart'] });
-		google.charts.setOnLoadCallback(drawChart);
+	//	google.charts.setOnLoadCallback(drawChart);
 
-		function drawChart() {
-			var data = google.visualization.arrayToDataTable([
-				['Year', 'Sales', 'Expenses'],
-				['2004', 1000, 400],
-				['2005', 1170, 460],
-				['2006', 660, 1120],
-				['2007', 1030, 540]
-			]);
+		function drawChart(dataset) {
+			
+			var dataArray = [];
+			var fieldArray = [];
+
+
+
+			for (field of dataset.result.schema.fields) {
+				console.log("field headings", field.name);
+				fieldArray.push(field.name)
+			}
+			//dataArray.push(fieldArray)
+			//var row, col;	
+			for (row of dataset.result.rows) {
+				var rowArray = [];
+				rowArray.push(row.f[0]);
+				rowArray.push(parseInt(row.f[1].v));
+				
+				//for (col of row.f) {
+				//	console.log("values", col.v)
+				//	rowArray.push(col.v)
+				//	console.log("load finished")
+				//}
+				dataArray.push(rowArray)
+			}
+			console.log("Chart Array", dataArray)
+				
 			var options = {
 				title: 'Company Performance',
 				//curveType: 'function',
 				legend: { position: 'bottom' }
 			};
+			var data = new google.visualization.DataTable();
+			data.addColumn('string', 'Month');
+			data.addColumn('number','Gross Sales')
+			data.addRows(dataArray);
 			var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
 			chart.draw(data, options);
 		}
@@ -42,10 +65,13 @@
 <script>
 	function executeLoadChart() {
 		console.log("load called")
-		dataset = execute().then();
-		console.log("dataset", dataset);
-		console.log("dataset MF", dataset.Mf);
-		s
+		dataset = execute().then(function (response){
+			console.log("response", response)
+			drawChart(response)
+		});
+		//console.log("dataset", dataset);
+		//console.log("dataset MF", dataset.Mf);
+		
 
 
 
