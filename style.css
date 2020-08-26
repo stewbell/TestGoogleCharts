@@ -1,0 +1,43 @@
+/* Copyright 2018 Google LLC.
+SPDX-License-Identifier: Apache-2.0 */
+
+/* CSS files add styling rules to your content */
+
+body {
+    font-family: "Benton Sans", "Helvetica Neue", helvetica, arial, sans-serif;
+    margin: 2em;
+  }
+  .heading{
+      display:Grid;
+      grid-template-rows: 1fr;
+  }
+  .pagelayout{
+      display: Grid;
+      grid-template-columns: .2fr 3fr 1fr;
+  }
+  .container {
+    display: grid;
+    grid-template-rows: repeat(5,1fr);
+    grid-template-columns: repeat(12, 1fr);
+    
+/*  border: 1px solid #666;
+*/
+gap: 10px;
+  }
+  
+  .box {
+    border: 2px solid #666;
+    background-color: #ddd;
+    border-radius: .5em;
+    padding: 10px;
+    cursor: move;
+    
+  }
+  
+  .box.over {
+    border: 3px dotted #666;
+  }
+  
+  [draggable] {
+    user-select: none;
+  }
