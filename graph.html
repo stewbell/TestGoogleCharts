@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Parcel Sandbox</title>
+	<meta charset="UTF-8" />
+
+	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+	<script type="text/javascript">
+		google.charts.load('current', { 'packages': ['corechart'] });
+	//	google.charts.setOnLoadCallback(drawChart);
+
+		function drawChart(dataset) {
+			
+			var dataArray = [];
+			var fieldArray = [];
+
+
+
+			for (field of dataset.result.schema.fields) {
+				console.log("field headings", field.name);
+				fieldArray.push(field.name)
+			}
+			//dataArray.push(fieldArray)
+			//var row, col;	
+			for (row of dataset.result.rows) {
+				var rowArray = [];
+				rowArray.push(row.f[0]);
+				rowArray.push(parseInt(row.f[1].v));
+				
+				//for (col of row.f) {
+				//	console.log("values", col.v)
+				//	rowArray.push(col.v)
+				//	console.log("load finished")
+				//}
+				dataArray.push(rowArray)
+			}
+			console.log("Chart Array", dataArray)
+				
+			var options = {
+				title: 'Company Performance',
+				//curveType: 'function',
+				legend: { position: 'bottom' }
+			};
+			var data = new google.visualization.DataTable();
+			data.addColumn('string', 'Month');
+			data.addColumn('number','Gross Sales')
+			data.addRows(dataArray);
+			var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
+			chart.draw(data, options);
+		}
+	</script>
+</head>
+
+<body>
+	<div id="app"></div>
+	<div id="curve_chart" style="width: 900px; height: 500px"></div>
+
+	<script src="src/index.js"></script>
+	<script src="https://apis.google.com/js/api.js"></script>
+	<script src="JavaScript/loadData.js"></script>
+</body>
+<button onclick="authenticate().then(loadClient)">authorize and load</button>
+<button onclick="executeLoadChart()">execute</button>
+<script>
+	function executeLoadChart() {
+		console.log("load called")
+		dataset = execute().then(function (response){
+			console.log("response", response)
+			drawChart(response)
+		});
+		//console.log("dataset", dataset);
+		//console.log("dataset MF", dataset.Mf);
+		
+
+
+
+		}
+		
+		
+		//console.log("datas", datas);
+			
+		/*function (dataset) {
+			console.log("dataset", dataset);
+			for (fieldName of dataset.result.schema.fields) {
+				console.log("field headings", fieldName.name);
+			}
+			//var row, col;
+			for (row of dataset.result.rows) {
+				for (col of row.f) {
+					console.log("values", col.v)
+				//	console.log("load finished")
+				}
+			}
+		}
+		)*/
+	
+function loadDatasetToChart(dataset){
+	console.log("dataset", dataset);
+
+}
+
+</script>
+
+</html>
