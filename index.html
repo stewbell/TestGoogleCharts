@@ -3,32 +3,64 @@ SPDX-License-Identifier: Apache-2.0 -->
 
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <title>Hello!</title>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="/style.css">
-    <script src="/dnd.js"></script>
-  </head>  
-  <body>
-    <div class=heading><h1>Smash</h1></div>
-    <div class=pagelayout>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div class="container">
-            <script>
-                for(i=1;i<49;i++){
-                          document.write(' <div draggable="true" class="box" id='+i+'>' +i+' </div>')
-                }
-            </script>
-        </div>
-        <div></div>
-     </div>
 
-    
-  </body>
-  
+<head>
+  <title>Hello!</title>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="/style.css">
+  <script src="https://apis.google.com/js/api.js"></script>
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  <script src="javascript/dnd.js"></script>
+  <script src="javascript/classes.js"></script>
+</head>
+
+<body>
+  <div class=heading>
+    <h1>Smash</h1>
+  </div>
+  <div class=pagelayout>
+    <div></div>
+    <div id="mainChart">
+      <script>
+        google.charts.load('current', { 'packages': ['corechart'] });
+        gapi.load("client:auth2", function () {
+        gapi.auth2.init({ client_id: "15273187460-elptddbevnsgd3f0fvo39cdn13h48ugs.apps.googleusercontent.com" });
+        })
+queryObject = new queryBQ("base");
+        function queryAndLoadChart() {
+          //Load data
+          
+          //queryObject.startup();
+          queryObject.authenticate().then(queryObject.loadClient).then(queryObject.execute);
+        }
+        function draw(){
+          console.log("queryBQ.dataset", queryBQ.dataset)
+          mainChart = new chart(queryBQ.dataset,"mainChart");
+          mainChart.drawChart();
+        }
+      </script>
+      <button onclick="queryAndLoadChart()">authorize and load</button>
+      <button onclick="draw()">Draw graph</button>
+      
+
+
+
+    </div>
+    <div></div>
+    <div></div>
+    <div class="container">
+      <script>
+        for (i = 1; i < 49; i++) {
+          document.write(' <div draggable="true" class="box" id=' + i + '>' + i + ' </div>')
+        }
+      </script>
+    </div>
+    <div></div>
+  </div>
+
+
+</body>
+
 </html>

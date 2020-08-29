@@ -10,6 +10,7 @@ function loadClient() {
         .then(function () { console.log("GAPI client loaded for API"); },
             function (err) { console.error("Error loading GAPI client for API", err); });
 }
+
 // Make sure the client is loaded and sign-in is complete before calling this method.
 function execute() {
     return gapi.client.bigquery.jobs.query({
