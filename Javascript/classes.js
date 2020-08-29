@@ -1,8 +1,16 @@
 class queryBQ {
-    dataset;
+    _dataset;
+   
+    
     constructor(input) {
         this.name = input;
+        this.datasetstore;
     }
+    get dataset(){
+        this.datasetstore = queryBQ._dataset;
+        return(this.datasetstore);
+    }
+    
     authenticate() {
         return gapi.auth2.getAuthInstance()
             .signIn({ scope: "https://www.googleapis.com/auth/bigquery https://www.googleapis.com/auth/bigquery.readonly https://www.googleapis.com/auth/cloud-platform https://www.googleapis.com/auth/cloud-platform.read-only" })
@@ -30,8 +38,8 @@ class queryBQ {
             .then(function (response) {
                 // Handle the results here (response.result has the parsed body).
                 console.log("Response", response);
-                queryBQ.dataset = response;
-                console.log("dataset", queryBQ.dataset);
+                queryBQ._dataset = response;
+                console.log("dataset", queryBQ._dataset);
             },
                 function (err) { console.error("Execute error", err); });
     }
@@ -42,10 +50,11 @@ class queryBQ {
 }
 class chart{
     constructor(dataset, elementID){
-        this.dataset = dataset;
+        this._dataset = dataset;
         this.elementID = elementID;
         console.log("dataset passed to constructor", dataset)
         console.log("this.dataet", this.dataset)
+  
     }
     drawChart() {
         //set arrays for data to be loaded into
@@ -53,13 +62,13 @@ class chart{
         var fieldArray = [];
         //load headings
         var field;
-        for (field of this.dataset.result.schema.fields) {
+        for (field of this._dataset.result.schema.fields) {
           console.log("field headings", field.name);
           fieldArray.push(field.name)
         }
         //load row data	
         var row;
-        for (row of this.dataset.result.rows) {
+        for (row of this._dataset.result.rows) {
             var rowArray = [];
             rowArray.push(row.f[0]);
             rowArray.push(parseInt(row.f[1].v));
