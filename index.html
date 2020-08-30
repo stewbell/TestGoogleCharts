@@ -22,13 +22,13 @@ SPDX-License-Identifier: Apache-2.0 -->
   </div>
   <div class=pagelayout>
     <div></div>
-    <div id="mainChart" style="width: 900px; height: 500px">
+    <div id="mainChart" class="mainChart" >
       <script>
         google.charts.load('current', { 'packages': ['corechart'] });
         gapi.load("client:auth2", function () {
           gapi.auth2.init({ client_id: "15273187460-elptddbevnsgd3f0fvo39cdn13h48ugs.apps.googleusercontent.com" });
         })
-        gapi.load.onload = function(){queryAndLoadChart()};
+        //gapi.load.onload = function(){queryAndLoadChart()};
         queryObject = new queryBQ("base");
         function queryAndLoadChart() {
           //Load data
@@ -53,10 +53,10 @@ SPDX-License-Identifier: Apache-2.0 -->
       </script>
     </div>
     <div id="promoBoard" class="promoBoard">
-      <div draggable="true"class="box" style="background-color:aqua;">PriceOff1</div> 
-      <div draggable="true"class="box" style="background-color:blueviolet;">PriceOff2</div> 
-      <div draggable="true"class="box" style="background-color:yellowgreen">FreePack1</div> 
-      <div draggable="true"class="box" style="background-color:tomato">ExtraSize1</div> 
+      <div draggable="true"class="promoBox" style="background-color:aqua;">PriceOff1</div> 
+      <div draggable="true"class="promoBox" style="background-color:blueviolet;">PriceOff2</div> 
+      <div draggable="true"class="promoBox" style="background-color:yellowgreen">FreePack1</div> 
+      <div draggable="true"class="promoBox" style="background-color:tomato">ExtraSize1</div> 
       
 
     </div>

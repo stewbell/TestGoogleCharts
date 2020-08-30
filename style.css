@@ -10,9 +10,13 @@ body {
 
   }
   .mainChart{
-    width: 75%; 
-    height: 500px;
+     
+    height: 350px;
     color: red;
+    background-color: linen;
+    border: 1px solid darkslategray;
+    border-radius: 1em;
+    padding: 10px;
 
   }
   .heading{
@@ -22,20 +26,29 @@ body {
   }
   .pagelayout{
       display: Grid;
-      grid-template-columns: .01fr 3fr 1fr;
-      grid-template-rows: 3fr 3fr 1fr;
-      gap: 50px;
+      grid-template-columns: .01fr 4fr 1fr;
+      grid-template-rows: 3fr 2fr;
+      gap: 20px;
   }
   .container {
     display: grid;
-    grid-template-rows: repeat(5,1fr);
+    grid-template-rows: repeat(4,1fr);
     grid-template-columns: repeat(12, 1fr);
     gap: 10px;
+    background-color: linen;
+    border: 1px solid darkslategray;
+    border-radius: 1em;
+    padding: 10px;
+    
   }
   .promoBoard {
     display: grid;
-    grid-template-rows: repeat(5,1fr);
+    grid-template-rows: repeat(4,1fr);
     gap: 10px;
+    background-color: linen;
+    border: 1px solid darkslategray;
+    border-radius: 1em;
+    padding: 10px;
   }
    .box {
     border: 2px solid #666;
@@ -47,7 +60,12 @@ body {
   .box.over {
     border: 3px dotted #666;
   }
-  
+  .promoBox {
+    border: 2px solid #666;
+    background-color: #ddd;
+    border-radius: .5em;
+    padding: 10px;
+    cursor: move;
   [draggable] {
     user-select: none;
   }

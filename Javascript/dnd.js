@@ -8,10 +8,9 @@ document.addEventListener('DOMContentLoaded', (event) => {
       this.style.opacity = '0.4';
       
       dragSrcEl = this;
-      
-  
       e.dataTransfer.effectAllowed = 'move';
       e.dataTransfer.setData('text/html', this.innerHTML);
+      e.dataTransfer.setData('color', this.style.backgroundColor);
     }
   
     function handleDragOver(e) {
@@ -38,13 +37,15 @@ document.addEventListener('DOMContentLoaded', (event) => {
       }
       
       if (dragSrcEl != this) {
-        dragSrcEl.innerHTML = this.innerHTML;
-        this.innerHTML = e.dataTransfer.getData('text/html');
-        console.log("e value",e);
-        console.log("this value",this);
-        dragSrcEl.newValue = "xxxx";
-        console.log("dragSrcEl", dragSrcEl)
-        console.log("newValue",dragSrcEl.newValue)
+
+       if (this.classList.contains("box")){
+        promoLabel = e.dataTransfer.getData('text/html');
+        color = e.dataTransfer.getData('color');
+        this.style.backgroundColor = color;
+        console.log("classList",this.classList.contains("box"));
+        if (this.classList.contains("box")){console.log("Its True!!!")};
+
+        }
       }
       
       return false;
@@ -59,7 +60,8 @@ document.addEventListener('DOMContentLoaded', (event) => {
     }
     
     
-    let items = document.querySelectorAll('.container .box');
+    
+    items = document.querySelectorAll('.promoBoard .promoBox');
     items.forEach(function(item) {
       item.addEventListener('dragstart', handleDragStart, false);
       item.addEventListener('dragenter', handleDragEnter, false);
@@ -68,4 +70,14 @@ document.addEventListener('DOMContentLoaded', (event) => {
       item.addEventListener('drop', handleDrop, false);
       item.addEventListener('dragend', handleDragEnd, false);
     });
+    items = document.querySelectorAll('.container .box');
+    items.forEach(function(item) {
+      item.addEventListener('dragstart', handleDragStart, false);
+      item.addEventListener('dragenter', handleDragEnter, false);
+      item.addEventListener('dragover', handleDragOver, false);
+      item.addEventListener('dragleave', handleDragLeave, false);
+      item.addEventListener('drop', handleDrop, false);
+      item.addEventListener('dragend', handleDragEnd, false);
+    });
+
   });
