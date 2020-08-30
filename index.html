@@ -28,9 +28,11 @@ SPDX-License-Identifier: Apache-2.0 -->
         gapi.load("client:auth2", function () {
           gapi.auth2.init({ client_id: "15273187460-elptddbevnsgd3f0fvo39cdn13h48ugs.apps.googleusercontent.com" });
         })
+        gapi.load.onload = function(){queryAndLoadChart()};
         queryObject = new queryBQ("base");
         function queryAndLoadChart() {
           //Load data
+          console.log("starting queryAndLoadChart");
           queryObject.authenticate().then(queryObject.loadClient).then(queryObject.execute);
         }
         function draw() {
@@ -46,11 +48,18 @@ SPDX-License-Identifier: Apache-2.0 -->
     <div class="container">
       <script>
         for (i = 1; i < 49; i++) {
-          document.write(' <div draggable="true" class="box" id=' + i + '>' + i + ' </div>')
+          document.write(' <div draggable="true" class="box" id=' + i + '></div>')
         }
       </script>
     </div>
-    <div></div>
+    <div id="promoBoard" class="promoBoard">
+      <div draggable="true"class="box" style="background-color:aqua;">PriceOff1</div> 
+      <div draggable="true"class="box" style="background-color:blueviolet;">PriceOff2</div> 
+      <div draggable="true"class="box" style="background-color:yellowgreen">FreePack1</div> 
+      <div draggable="true"class="box" style="background-color:tomato">ExtraSize1</div> 
+      
+
+    </div>
   </div>
 
 
