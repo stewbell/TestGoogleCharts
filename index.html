@@ -22,7 +22,7 @@ SPDX-License-Identifier: Apache-2.0 -->
   </div>
   <div class=pagelayout>
     <div></div>
-    <div id="mainChart" class="mainChart" >
+    <div id="mainChart" class="mainChart">
       <script>
         google.charts.load('current', { 'packages': ['corechart'] });
         gapi.load("client:auth2", function () {
@@ -47,17 +47,55 @@ SPDX-License-Identifier: Apache-2.0 -->
     <div></div>
     <div class="container">
       <script>
-        for (i = 1; i < 49; i++) {
-          document.write(' <div draggable="true" class="box" id=' + i + '></div>')
+        ProductList = [
+  {
+    "Product": "OREO SLUG"
+  },
+  {
+    "Product": "OREO LUP"
+  },
+  {
+    "Product": "OREO SOFTCAKE"
+  },
+  {
+    "Product": "CDM BLOCK"
+  },
+  {
+    "Product": "OREO MINI"
+  },
+  {
+    "Product": "BISKUAT SMALL"
+  },
+  {
+    "Product": "BISKUAT MEDIUM"
+  },
+  {
+    "Product": "CHEDDDAR"
+  },
+  {
+    "Product": "BISKUAT BOLU"
+  },
+  {
+    "Product": "KEJU CAKE"
+  },
+  {
+    "Product": "BISKUAT SWAVORY"
+  }];
+        counter =1;
+        for (row = 0; row < 10; row++) {
+          document.write('<div class="boxheading" >' + ProductList[row].Product + '</div>')
+          for (col = 0; col < 12; col++) {
+            document.write(' <div draggable="true" class="box" id=' + counter++ + '></div>')
+          }
         }
       </script>
     </div>
     <div id="promoBoard" class="promoBoard">
-      <div draggable="true"class="promoBox" style="background-color:aqua;">PriceOff1</div> 
-      <div draggable="true"class="promoBox" style="background-color:blueviolet;">PriceOff2</div> 
-      <div draggable="true"class="promoBox" style="background-color:yellowgreen">FreePack1</div> 
-      <div draggable="true"class="promoBox" style="background-color:tomato">ExtraSize1</div> 
-      
+      <div draggable="true" class="promoBox" style="background-color:aqua;">PriceOff1</div>
+      <div draggable="true" class="promoBox" style="background-color:blueviolet;">PriceOff2</div>
+      <div draggable="true" class="promoBox" style="background-color:yellowgreen">FreePack1</div>
+      <div draggable="true" class="promoBox" style="background-color:tomato">ExtraSize1</div>
+
 
     </div>
   </div>

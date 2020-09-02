@@ -7,17 +7,12 @@ body {
     font-family: "Benton Sans", "Helvetica Neue", helvetica, arial, sans-serif;
     margin: 2em;
     background: lightgrey;
-
   }
   .mainChart{
-     
     height: 350px;
     color: red;
-    background-color: linen;
-    border: 1px solid darkslategray;
-    border-radius: 1em;
+    background-color: white;
     padding: 10px;
-
   }
   .heading{
       display:Grid;
@@ -27,38 +22,37 @@ body {
   .pagelayout{
       display: Grid;
       grid-template-columns: .01fr 4fr 1fr;
-      grid-template-rows: 3fr 2fr;
+      grid-template-rows: 2.5fr 2fr;
       gap: 20px;
   }
   .container {
     display: grid;
-    grid-template-rows: repeat(4,1fr);
-    grid-template-columns: repeat(12, 1fr);
-    gap: 10px;
-    background-color: linen;
-    border: 1px solid darkslategray;
-    border-radius: 1em;
+    grid-template-rows: repeat(10,2em);
+    grid-template-columns: 10em repeat(12, 1fr);
+    gap: 0px;
+    background-color: white;
     padding: 10px;
-    
   }
   .promoBoard {
     display: grid;
     grid-template-rows: repeat(4,1fr);
     gap: 10px;
-    background-color: linen;
-    border: 1px solid darkslategray;
-    border-radius: 1em;
+    background-color: white;
     padding: 10px;
   }
    .box {
-    border: 2px solid #666;
-    background-color: #ddd;
-    border-radius: .5em;
-    padding: 10px;
+    border: 1px dotted lightgrey;
+    background-color: white;
+   
+    margin: 0;
     cursor: move;
   }
   .box.over {
     border: 3px dotted #666;
+  
+  }
+  .boxheading{
+    padding-top: .5em;
   }
   .promoBox {
     border: 2px solid #666;
