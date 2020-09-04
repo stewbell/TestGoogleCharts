@@ -14,6 +14,7 @@ SPDX-License-Identifier: Apache-2.0 -->
   <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
   <script src="javascript/dnd.js"></script>
   <script src="javascript/classes.js"></script>
+  <script src="javascript/data.js"></script>
 </head>
 
 <body>
@@ -25,63 +26,41 @@ SPDX-License-Identifier: Apache-2.0 -->
     <div id="mainChart" class="mainChart">
       <script>
         google.charts.load('current', { 'packages': ['corechart'] });
+        mainChart = new chart("mainChart");
         gapi.load("client:auth2", function () {
           gapi.auth2.init({ client_id: "15273187460-elptddbevnsgd3f0fvo39cdn13h48ugs.apps.googleusercontent.com" });
         })
         //gapi.load.onload = function(){queryAndLoadChart()};
-        queryObject = new queryBQ("base");
-        function queryAndLoadChart() {
-          //Load data
-          console.log("starting queryAndLoadChart");
-          queryObject.authenticate().then(queryObject.loadClient).then(queryObject.execute);
+
+        function login() {
+          database = authenticate().then(loadClient)
+          // mainChart.drawChart(database);
         }
-        function draw() {
-          mainChart = new chart(queryObject.dataset, "mainChart");
-          mainChart.drawChart();
+        function initialChart() {
+          return gapi.client.bigquery.jobs.query({
+            "projectId": "modelsales1",
+            "resource": {
+              "query": "Select cast(Month as String) as M, GrossSales from model4.InitialChart",
+              "useLegacySql": false,
+            }
+          })
+            .then(function (response) {
+              // Handle the results here (response.result has the parsed body).
+              mainChart.drawChart(response)
+              
+            },
+              function (err) { console.error("Execute error", err); });
         }
       </script>
-      <button onclick="queryAndLoadChart()">authorize and load</button>
-      <button onclick="draw()">Draw graph</button>
+      <button onclick="login()">login</button>
+      <button onclick="initialChart()">initial Chart</button>
     </div>
     <div></div>
     <div></div>
     <div class="container">
       <script>
-        ProductList = [
-  {
-    "Product": "OREO SLUG"
-  },
-  {
-    "Product": "OREO LUP"
-  },
-  {
-    "Product": "OREO SOFTCAKE"
-  },
-  {
-    "Product": "CDM BLOCK"
-  },
-  {
-    "Product": "OREO MINI"
-  },
-  {
-    "Product": "BISKUAT SMALL"
-  },
-  {
-    "Product": "BISKUAT MEDIUM"
-  },
-  {
-    "Product": "CHEDDDAR"
-  },
-  {
-    "Product": "BISKUAT BOLU"
-  },
-  {
-    "Product": "KEJU CAKE"
-  },
-  {
-    "Product": "BISKUAT SWAVORY"
-  }];
-        counter =1;
+
+        counter = 1;
         for (row = 0; row < 10; row++) {
           document.write('<div class="boxheading" >' + ProductList[row].Product + '</div>')
           for (col = 0; col < 12; col++) {
