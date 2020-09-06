@@ -40,7 +40,7 @@ SPDX-License-Identifier: Apache-2.0 -->
           return gapi.client.bigquery.jobs.query({
             "projectId": "modelsales1",
             "resource": {
-              "query": "Select cast(Month as String) as M, GrossSales from model4.InitialChart",
+              "query": "CALL `modelsales1.model4.InitialProcedure`();",
               "useLegacySql": false,
             }
           })
