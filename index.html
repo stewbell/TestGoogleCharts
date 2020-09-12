@@ -28,7 +28,8 @@ SPDX-License-Identifier: Apache-2.0 -->
         google.charts.load('current', { 'packages': ['corechart'] });
         mainChart = new chart("mainChart");
         gapi.load("client:auth2", function () {
-          gapi.auth2.init({ client_id: "15273187460-elptddbevnsgd3f0fvo39cdn13h48ugs.apps.googleusercontent.com" });
+         auth22 = gapi.auth2.init({ client_id: "15273187460-elptddbevnsgd3f0fvo39cdn13h48ugs.apps.googleusercontent.com" });
+         console.log("auth22", auth22)
         })
         //gapi.load.onload = function(){queryAndLoadChart()};
 
@@ -47,13 +48,50 @@ SPDX-License-Identifier: Apache-2.0 -->
             .then(function (response) {
               // Handle the results here (response.result has the parsed body).
               mainChart.drawChart(response)
-              
+
             },
               function (err) { console.error("Execute error", err); });
+        }
+      
+       
+      
+
+       
+        function APITestLoop(){
+          var startTime = new Date()
+          
+       console.log("start", startTime.getTime()/1000)
+          for (i=1;i<3;i++){
+            APIcall(startmilliseconds);
+          }
+          console.log("End call");
+        }
+        
+        
+        
+        function APIcall(startmilliseconds) {
+          
+          fetch('https://automl.googleapis.com/v1beta1/projects/modelsales1/locations/us-central1/models/TBL1605922494273814528:predict', {
+            method: 'POST', // or 'PUT'
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': 'Bearer ya29.a0AfH6SMA7T1UwrW8lmx49q951E5d_fVWlcaIv3WRiBUxtee9DEc23cRyRtazjh9_SFsGqBSRbcHnDDoWQNvTZwv1obIDJpDmS-nCqE5GTDesjyeRsAQODa7ocUGKhR5Z7G3hnFSh1MnGBB4A_Wzc8Xx2WYQCcsXoJv97K'  
+              },
+            body: JSON.stringify(APIdata),
+          })
+            .then(response => response.json())
+            .then(data => {
+              var lapTime = new Date();
+              console.log('Success:', lapTime.getTime()/1000, data);            })
+        
+            .catch((error) => {
+              console.error('Error:', error);
+            });
         }
       </script>
       <button onclick="login()">login</button>
       <button onclick="initialChart()">initial Chart</button>
+      <button onclick="APITestLoop()">API AutoML call</button>
     </div>
     <div></div>
     <div></div>
