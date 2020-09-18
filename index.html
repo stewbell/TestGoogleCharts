@@ -26,7 +26,9 @@ SPDX-License-Identifier: Apache-2.0 -->
     <div id="mainChart" class="mainChart">
       <script>
         google.charts.load('current', { 'packages': ['corechart'] });
-        mainChart = new chart("mainChart");
+        //mainChart = new chart("mainChart");
+        rawDataTable = new dataTables();
+
         gapi.load("client:auth2", function () {
           auth22 = gapi.auth2.init({ client_id: "15273187460-elptddbevnsgd3f0fvo39cdn13h48ugs.apps.googleusercontent.com" });
           console.log("auth22", auth22)
@@ -34,34 +36,32 @@ SPDX-License-Identifier: Apache-2.0 -->
         //gapi.load.onload = function(){queryAndLoadChart()};
 
         function login() {
-          database = authenticate().then(loadClient)
+          database = authenticate().then(loadClient);
           // mainChart.drawChart(database);
         }
-        function initialChart() {
+        function loadData() {
+          loadTime = new timmer('Initial data load');
+         
           return gapi.client.bigquery.jobs.query({
             "projectId": "modelsales1",
             "resource": {
-              "query": "CALL `modelsales1.model4.InitialProcedure`();",
+              "query": "CALL `modelsales1.model5.InitialProcedure`();",
               "useLegacySql": false,
             }
           })
             .then(function (response) {
               // Handle the results here (response.result has the parsed body).
-              mainChart.drawChart(response)
+              //mainChart.drawChart(response);
+              loadTime.lapTime('loaded');
+              rawDataTable.loadBaseData(response);
 
             },
               function (err) { console.error("Execute error", err); });
         }
 
-
-
-
-
         function APITestLoop() {
-          var startTime = new Date()
 
-          console.log("start", startTime.getTime() / 1000)
-          for (i = 1; i < 3; i++) {
+          for (i = 1; i < 2; i++) {
             APIcall();
           }
           console.log("End call");
@@ -70,8 +70,10 @@ SPDX-License-Identifier: Apache-2.0 -->
 
 
         function APIcall() {
+          var startTime = new Date();
+          //console.log("start", startTime.getTime());
 
-          fetch('https://australia-southeast1-modelsales1.cloudfunctions.net/predict', {
+          fetch('http://localhost:8080/predict', {
 
 
             method: 'PUT', // or 'PUT'
@@ -84,13 +86,14 @@ SPDX-License-Identifier: Apache-2.0 -->
 
             .then(function (response) {
               var lapTime = new Date();
-              console.log("data", response);
-              console.log(response.bodyUsed);
+              //console.log("data", response);
+              //console.log(response.bodyUsed);
+              console.log("API Call Time", lapTime.getTime() - startTime.getTime());
               response.json().then(function (blobblob) {
                 console.log("blob blob", blobblob)
               });
-              console.log(response.bodyUsed);
-              
+              // console.log(response.bodyUsed);
+
 
 
 
@@ -103,7 +106,7 @@ SPDX-License-Identifier: Apache-2.0 -->
         }
       </script>
       <button onclick="login()">login</button>
-      <button onclick="initialChart()">initial Chart</button>
+      <button onclick="loadData()">Load Data</button>
       <button onclick="APITestLoop()">API AutoML call</button>
     </div>
     <div></div>
