@@ -40,7 +40,7 @@ SPDX-License-Identifier: Apache-2.0 -->
           // mainChart.drawChart(database);
         }
         function loadData() {
-          loadTime = new timmer('Initial data load');
+          loadTime = new timmer('Client data load 1mill BQ records');
          
           return gapi.client.bigquery.jobs.query({
             "projectId": "modelsales1",
@@ -52,8 +52,9 @@ SPDX-License-Identifier: Apache-2.0 -->
             .then(function (response) {
               // Handle the results here (response.result has the parsed body).
               //mainChart.drawChart(response);
-              loadTime.lapTime('loaded');
+              loadTime.lapTime('records loaded');
               rawDataTable.loadBaseData(response);
+              rawDataTable.AggByProduct();
 
             },
               function (err) { console.error("Execute error", err); });
